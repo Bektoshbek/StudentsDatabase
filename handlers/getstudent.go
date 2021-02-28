@@ -1,4 +1,4 @@
-package getreqs
+package handlers
 
 import (
 	"database/sql"
@@ -9,14 +9,15 @@ import (
 	"github.com/bektosh/studentsDatabase/models"
 )
 
-// GetByLevel - queries info about students by level
-func GetByLevel(w http.ResponseWriter, r *http.Request, db *sql.DB) ([]byte, error) {
-	level := r.URL.Query().Get("level")
+// GetStudent - queries info about students by name
+func GetStudent(w http.ResponseWriter, r *http.Request, db *sql.DB, param string) ([]byte, error) {
+	value := r.URL.Query().Get(param)
 	var (
 		students []models.Student
 		student  models.Student
 	)
-	rows, err := db.Query("SELECT * FROM students_info WHERE level=$1", level)
+	sqlQuery := fmt.Sprintf("SELECT * FROM students_info WHERE %s=$1", param)
+	rows, err := db.Query(sqlQuery, value)
 	if err != nil {
 		fmt.Println("Error while querying")
 		return []byte("Sorry, internal error occurred"), err

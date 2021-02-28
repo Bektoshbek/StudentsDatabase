@@ -1,4 +1,4 @@
-package postreqs
+package handlers
 
 import (
 	"database/sql"

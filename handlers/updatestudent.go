@@ -1,9 +1,8 @@
-package putreqs
+package handlers
 
 import (
 	"database/sql"
 	"encoding/json"
-	"github.com/bektosh/studentsDatabase/handlers/getreqs"
 	"github.com/bektosh/studentsDatabase/models"
 	"io/ioutil"
 	"net/http"
@@ -12,18 +11,22 @@ import (
 //UpdateStudent - updated specified info about a student
 func UpdateStudent(w http.ResponseWriter, r *http.Request, db *sql.DB) ([]byte, error) {
 	var (
-		res     []byte
-		student models.Student
+		res      []byte
+		students []models.Student
+		student  models.Student
 	)
-	body, err := getreqs.GetByID(w, r, db)
+	body, err := GetStudent(w, r, db, "id")
 	if err != nil {
 		return res, err
 	}
-	err = json.Unmarshal(body, &student)
+	err = json.Unmarshal(body, &students)
 	if err != nil {
 		res = []byte("Could not decode json")
 		return res, err
 	}
+
+	student = students[0]
+
 	id := r.URL.Query().Get("id")
 	body, err = ioutil.ReadAll(r.Body)
 	if err != nil {

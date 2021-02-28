@@ -1,4 +1,4 @@
-package deletereqs
+package handlers
 
 import (
 	"database/sql"
