@@ -12,12 +12,12 @@ import (
 
 // Constants for database connection
 const (
-	DbName     = "students"
-	DbUser     = "bektosh"
-	DbPassword = "030409"
-	DbHost     = "localhost"
-	DbPort     = "5432"
-	SslMode    = "disable"
+	DbName     = "<database name>"
+	DbUser     = "<database user>"
+	DbPassword = "<user password>"
+	DbHost     = "<database host>"
+	DbPort     = "<database port>"
+	SslMode    = "<ssl mode>"
 )
 
 var db *sql.DB
